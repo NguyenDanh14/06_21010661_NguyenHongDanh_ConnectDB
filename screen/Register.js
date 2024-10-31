@@ -11,10 +11,10 @@ export default function App({navigation}) {
 
     const handleRegister = async () => {
       try {
-        const response = await axios.post('http://192.168.1.47:3000/api/register', {
+        const response = await axios.post('http://192.168.1.48:3000/api/register', {
           name: user,
           pass: pass,
-          avatar: 'https://imgur.com/2SDsjlL.png'
+          img: 'https://i.imgur.com/sYwoU1u.jpeg'
         });
         Alert.alert("Đăng ký thành công!", response.data.message);
         navigation.goBack();
@@ -30,19 +30,19 @@ export default function App({navigation}) {
   return (
     <View style={styles.container}>
         <View style={styles.logo}>
-            <Image style={{height: 100, width: 100}} source={require('../assets/logoicon.png')}/>
-            <Text style={{color: 'white', fontSize: 32, fontWeight: 'bold'}}>Hello</Text>
+            <Image style={{height: 100, width: 100}} source={require('../assets/icon.png')}/>
+            <Text style={{color: 'black', fontSize: 25, }}>REGISTER</Text>
         </View>
         <View style={styles.viewInput}>
             <View style={styles.input}>
-                <Icon name='user' size={30} color={'white'}/>
-                <TextInput style={{marginLeft: 10, flex: 1, paddingHorizontal: 10, color: 'white'}} 
-                placeholder='user name' placeholderTextColor={'white'} value={user} onChangeText={setUser}/>
+                <Icon name='user' size={30} color={'black'}/>
+                <TextInput style={{marginLeft: 10, flex: 1, paddingHorizontal: 10, color: 'gray'}} 
+                placeholder='user name' placeholderTextColor={'gray'} value={user} onChangeText={setUser}/>
             </View>
             <View style={styles.input}>
-                <Icon name='lock' size={30} color={'white'}/>
-                <TextInput style={{marginLeft: 10, flex: 1, paddingHorizontal: 10, color: 'white'}} 
-                placeholder='password' placeholderTextColor={'white'} value={pass} onChangeText={setPass}/>
+                <Icon name='lock' size={30} color={'black'}/>
+                <TextInput style={{marginLeft: 10, flex: 1, paddingHorizontal: 10, color: 'gray'}} 
+                placeholder='password' placeholderTextColor={'gray'} value={pass} onChangeText={setPass}/>
             </View>
 
             <TouchableOpacity style={styles.Touch} onPress={handleRegister}>
@@ -52,7 +52,7 @@ export default function App({navigation}) {
             <View style={styles.hr}/>
 
             <TouchableOpacity style={{alignItems: 'center'}} onPress={()=> navigation.goBack()}>
-                <Text style={{fontSize: 13, color: 'white'}}>Login</Text>
+                <Text style={{fontSize: 15, color: 'black'}}>Login</Text>
             </TouchableOpacity>
         </View>
     </View>
@@ -62,7 +62,7 @@ export default function App({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#5958b2',
+    backgroundColor: '#fff',
   }, logo: {
     padding: 20,
     justifyContent: 'center',
@@ -72,16 +72,16 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 10
   }, input: {
-    borderColor: 'white',
+    borderColor: 'gray',
     borderWidth: .3,
     borderRadius: 15,
     padding: 10,
     flexDirection: 'row',
     marginVertical: 10,
-    color: 'white'
+    color: 'black'
   }, Touch : {
-    padding: 20,
-    backgroundColor: '#474693',
+    padding: 10,
+    backgroundColor: '#00bdd6',
     alignItems: 'center',
     marginTop: 30,
     borderRadius: 15

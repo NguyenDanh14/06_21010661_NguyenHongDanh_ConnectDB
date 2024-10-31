@@ -5,17 +5,17 @@ export default function App({ navigation, route }) {
   const user = route.params.userData;
   const [name, setName] = useState(user.name);
   const [pass, setPass] = useState(user.pass);
-  const [avatar, setAvatar] = useState(user.avatar);
+  const [img, setImg] = useState(user.img);
   const [id] = useState(user.id);
 
   const updateUser = async () => {
     try {
-      const response = await fetch(`http://192.168.1.47:3000/api/user/${id}`, {
+      const response = await fetch(`http://192.168.1.48:3000/api/user/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, pass, avatar }), 
+        body: JSON.stringify({ name, pass, img }), 
       });
 
       if (!response.ok) {
@@ -58,7 +58,7 @@ export default function App({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={styles.head}>
-        <Image style={{ width: 80, height: 80, borderRadius: 90 }} source={{ uri: user.avatar }} />
+        <Image style={{ width: 80, height: 80, borderRadius: 90 }} source={{ uri: user.img }} />
         <Text style={{ fontSize: 24, marginLeft: 15, fontWeight: 'bold' }}>{user.name}</Text>
       </View>
       <View style={styles.form}>
@@ -74,7 +74,7 @@ export default function App({ navigation, route }) {
 
         <View style={styles.inputBox}>
           <Text style={{ fontSize: 16 }}>Avatar</Text>
-          <TextInput value={avatar} onChangeText={setAvatar} style={{ flex: 1, marginLeft: 10 }} />
+          <TextInput value={img} onChangeText={setImg} style={{ flex: 1, marginLeft: 10 }} />
         </View>
 
         <TouchableOpacity style={styles.touchSave} onPress={updateUser}>
@@ -82,11 +82,11 @@ export default function App({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <View style={styles.form}>
-        <TouchableOpacity style={[styles.touchSave, { backgroundColor: '#dc3545' }]} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity style={[styles.touchSave, { backgroundColor: '#00bdd6' }]} onPress={() => navigation.navigate('Login')}>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Sign Out</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.touchSave, { backgroundColor: '#b02a37' }]} onPress={deleteUser}>
+        <TouchableOpacity style={[styles.touchSave, { backgroundColor: 'red' }]} onPress={deleteUser}>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Delete this Account</Text>
         </TouchableOpacity>
       </View>
@@ -124,7 +124,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,
+    width:300,
     alignItems: 'center',
-    backgroundColor: '#28a745',
+    marginLeft:40,
+    backgroundColor: '#00bdd6',
   },
 });
