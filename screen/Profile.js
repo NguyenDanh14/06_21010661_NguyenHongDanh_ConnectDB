@@ -32,7 +32,7 @@ export default function App({ navigation, route }) {
 
   const deleteUser = async () => {
     try {
-      const response = await fetch(`http://192.168.1.47:3000/api/users/delete/${id}`, {
+      const response = await fetch(`http://192.168.1.48:3000/api/users/delete/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
