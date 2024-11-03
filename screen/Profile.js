@@ -78,16 +78,16 @@ export default function App({ navigation, route }) {
         </View>
 
         <TouchableOpacity style={styles.touchSave} onPress={updateUser}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Save</Text>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>SAVE</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.form}>
         <TouchableOpacity style={[styles.touchSave, { backgroundColor: '#00bdd6' }]} onPress={() => navigation.navigate('Login')}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Sign Out</Text>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>SIGN OUT</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.touchSave, { backgroundColor: 'red' }]} onPress={deleteUser}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Delete this Account</Text>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>DELETE THIS ACCOUNT</Text>
         </TouchableOpacity>
       </View>
     </View>

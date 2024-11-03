@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   password: 'sapassword',
   port: 3306,
 });
-
+// kết nối mysql
 db.connect((err) => {
   if (err) {
     console.error('Không thể kết nối đến MySQL:', err);
@@ -22,7 +22,7 @@ db.connect((err) => {
   }
   console.log('Kết nối đến MySQL');
 });
-
+// lấy danh sách user
 app.get('/api/data', (req, res) => {
   db.query('SELECT id, name, pass, img FROM user', (err, results) => {
     if (err) {
@@ -91,7 +91,7 @@ app.delete('/api/users/delete/:id', (req, res) => {
       return res.status(500).json({ error: 'Lỗi Database khi xóa người dùng' });
     }
     if (result.affectedRows === 0) {
-      console.log('User not found');
+      console.log('Không tìm thấy người dùng');
       return res.status(404).json({ error: 'Không tìm thấy người dùng' });
     }
     console.log('Xóa người dùng thành công');
@@ -99,6 +99,22 @@ app.delete('/api/users/delete/:id', (req, res) => {
   });
 });
 
+
+const registerUser = (req, res) => {
+  const { name, pass, img } = req.body;
+  console.log("Request body:", req.body);
+  const query = "INSERT INTO user (name, pass, img) VALUES (?, ?, ?)";
+
+  db.query(query, [name, pass, img || null], (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Truy vấn Database thất bại" });
+    }
+    res.status(201).json({ message: "Đăng ký thành công" });
+  });
+};
+
+module.exports = { registerUser };
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
