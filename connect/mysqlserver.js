@@ -10,7 +10,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
-  database: 'dblogin',
+  database: 'mydb',
   password: 'sapassword',
   port: 3306,
 });
@@ -22,6 +22,7 @@ db.connect((err) => {
   }
   console.log('Kết nối đến MySQL');
 });
+
 // lấy danh sách user
 app.get('/api/data', (req, res) => {
   db.query('SELECT id, name, pass, img FROM user', (err, results) => {
@@ -32,9 +33,28 @@ app.get('/api/data', (req, res) => {
   });
 });
 
+// login
+app.post('/api/login', (req, res) => {
+  const { name, pass } = req.body;
+
+  const query = 'SELECT * FROM user WHERE name = ? AND pass = ?';
+  db.query(query, [name, pass], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Lỗi hệ thống' });
+    }
+
+    if (results.length > 0) {
+      res.json({ message: 'Đăng nhập thành công', user: results[0] });
+    } else {
+      res.status(401).json({ error: 'Sai tên đăng nhập hoặc mật khẩu' });
+    }
+  });
+});
+
+
 // Endpoint để đăng ký tài khoản
 app.post('/api/register', (req, res) => {
-  const { name, pass, img } = req.body;
+  const { name, pass } = req.body;
 
   // Kiểm tra tên người dùng đã tồn tại hay chưa
   const checkQuery = 'SELECT * FROM user WHERE name = ?';
@@ -49,8 +69,8 @@ app.post('/api/register', (req, res) => {
     }
 
     // Thêm người dùng vào cơ sở dữ liệu
-    const insertQuery = 'INSERT INTO user (name, pass, img) VALUES (?, ?, ?)';
-    db.query(insertQuery, [name, pass, img], (err, result) => {
+    const insertQuery = 'INSERT INTO user (name, pass) VALUES (?, ?)';
+    db.query(insertQuery, [name, pass], (err, result) => {
       if (err) {
         console.error('Lỗi:', err); // Log lỗi insert
         return res.status(500).json({ error: 'Lỗi !' });
@@ -62,12 +82,12 @@ app.post('/api/register', (req, res) => {
 
 // Endpoint để cập nhật thông tin người dùng
 app.put('/api/user/:id', (req, res) => {
-  console.log(`Received request to update user with ID: ${req.params.id}`);
+  console.log(`Đã nhận được yêu cầu cập nhật người dùng với ID: ${req.params.id}`);
   const userId = req.params.id;
-  const { name, pass, img } = req.body;
+  const { name, pass } = req.body;
 
-  const updateQuery = 'UPDATE user SET name = ?, pass = ?, img = ? WHERE id = ?';
-  db.query(updateQuery, [name, pass, img, userId], (err, result) => {
+  const updateQuery = 'UPDATE user SET name = ?, pass = ? WHERE id = ?';
+  db.query(updateQuery, [name, pass, userId], (err, result) => {
     if (err) {
       console.error('Lỗi cập nhật thông tin người dùng:', err);
       return res.status(500).json({ error: 'Lỗi Database khi cập nhật người dùng' });
@@ -103,7 +123,7 @@ app.delete('/api/users/delete/:id', (req, res) => {
 const registerUser = (req, res) => {
   const { name, pass, img } = req.body;
   console.log("Request body:", req.body);
-  const query = "INSERT INTO user (name, pass, img) VALUES (?, ?, ?)";
+  const query = "INSERT INTO user (name, pass) VALUES (?, ?)";
 
   db.query(query, [name, pass, img || null], (err, result) => {
     if (err) {

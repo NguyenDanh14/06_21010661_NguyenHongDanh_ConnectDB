@@ -31,7 +31,7 @@ export default function App({navagation, route}) {
       <View style={styles.nav}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image style={{height: 50, width: 50, borderRadius: 90}} 
-          source={{uri : user.avatar}}/>
+          source={{uri : user.img}}/>
           <View style={{marginLeft: 15}}>
             <Text style={{ color: 'white'}}>Welcome!</Text>
             <Text style={{ color: 'white'}}>{user.name}</Text>

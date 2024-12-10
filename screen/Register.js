@@ -14,7 +14,7 @@ export default function App({navigation}) {
         const response = await axios.post('http://192.168.1.48:3000/api/register', {
           name: user,
           pass: pass,
-          img: 'https://i.imgur.com/sYwoU1u.jpeg'
+          // img: 'https://imgur.com/2SDsjlL.png'
         });
         Alert.alert("Đăng ký thành công!", response.data.message);
         navigation.goBack();
@@ -26,6 +26,7 @@ export default function App({navigation}) {
         }
       }
     };    
+    
     
   return (
     <View style={styles.container}>

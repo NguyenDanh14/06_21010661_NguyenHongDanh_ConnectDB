@@ -30,14 +30,28 @@ export default function App({ navigation }) {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
 
+//mysql
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post("http://192.168.1.48:3000/api/login", {
+  //       name: user,
+  //       pass: pass,
+  //     });
+  //     if (response.data.user) {
+  //       navigation.navigate("Home", { userData: response.data.user });
+  //     }
+  //   } catch (error) {
+  //     Alert.alert("Error", "Invalid username or password.");
+  //   }
+  // };
+
+  //mongo
   const handleLogin = () => {
-    const checkAccount = data.find(
-      (item) => item.name === user && item.pass === pass
-    );
-    if (checkAccount) {
-      navigation.navigate("Home", { userData: checkAccount });
-    } else {
-      Alert.alert("Kiểm tra lại tài khoản và mật khẩu!");
+    const checkAccount = data.find(item => item.name === user && item.pass === pass);
+      if(checkAccount){
+        navigation.navigate('Home', {userData: checkAccount });
+    }else{
+      Alert.alert('Kiểm tra lại tài khoản và mật khẩu!');
     }
   };
 
@@ -79,7 +93,7 @@ export default function App({ navigation }) {
         <Text style={styles.texrForgot}>Register</Text>
       </TouchableOpacity>
       <View style={styles.style7}>
-        <TouchableOpacity onPress={handleLogin} style={styles.continueButton}>
+        <TouchableOpacity style={styles.continueButton} onPress={handleLogin} >
           <Text style={styles.textContinue}>Login</Text>
         </TouchableOpacity>
       </View>

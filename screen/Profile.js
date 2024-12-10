@@ -5,7 +5,7 @@ export default function App({ navigation, route }) {
   const user = route.params.userData;
   const [name, setName] = useState(user.name);
   const [pass, setPass] = useState(user.pass);
-  const [img, setImg] = useState(user.img);
+  // const [img, setImg] = useState(user.img);
   const [id] = useState(user.id);
 
   const updateUser = async () => {
@@ -15,7 +15,7 @@ export default function App({ navigation, route }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, pass, img }), 
+        body: JSON.stringify({ name, pass })
       });
 
       if (!response.ok) {
@@ -70,11 +70,6 @@ export default function App({ navigation, route }) {
         <View style={styles.inputBox}>
           <Text style={{ fontSize: 16 }}>Pass</Text>
           <TextInput value={pass} onChangeText={setPass} style={{ flex: 1, marginLeft: 10 }} />
-        </View>
-
-        <View style={styles.inputBox}>
-          <Text style={{ fontSize: 16 }}>Avatar</Text>
-          <TextInput value={img} onChangeText={setImg} style={{ flex: 1, marginLeft: 10 }} />
         </View>
 
         <TouchableOpacity style={styles.touchSave} onPress={updateUser}>
